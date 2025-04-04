@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import MonteCarloExplanation from '@/components/MonteCarloExplanation';
 import SimpleSimulator from '@/components/SimpleSimulator';
 import StatisticsExplanation from '@/components/StatisticsExplanation';
+import TradingMonteCarloAnalysis from '@/components/TradingMonteCarloAnalysis';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -15,6 +16,7 @@ const Index = () => {
         <Hero />
         <MonteCarloExplanation />
         <SimpleSimulator />
+        <TradingMonteCarloAnalysis />
         <StatisticsExplanation />
       </main>
       <Footer />
