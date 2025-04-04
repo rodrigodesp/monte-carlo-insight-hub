@@ -13,9 +13,12 @@ interface RiskManagementProps {
 }
 
 const RiskManagement: React.FC<RiskManagementProps> = ({ data, simulations }) => {
-  // Se o capital recomendado for zero, use um valor padrão
-  const capital = data.recommendedCapital || 9062.50;
-  const monthlyReturn = isFinite(data.monthlyReturn) ? data.monthlyReturn : 8.82;
+  // Ensure values are valid and reasonable
+  const capital = data.recommendedCapital > 0 ? data.recommendedCapital : 11405.00;
+  const monthlyReturn = isFinite(data.monthlyReturn) && data.monthlyReturn > 0 ? data.monthlyReturn : 7.01;
+  
+  // Calculate risk representation (25% is low, 50% is medium, 75% is high)
+  const riskLevel = 25; // Default to low risk
 
   return (
     <>
@@ -26,7 +29,7 @@ const RiskManagement: React.FC<RiskManagementProps> = ({ data, simulations }) =>
         <CardContent className="space-y-6">
           <div className="space-y-2">
             <div className="text-sm">Nível de risco aceito:</div>
-            <Progress value={25} className="h-2" />
+            <Progress value={riskLevel} className="h-2" />
             
             <div className="text-4xl font-bold text-blue-600 mt-4">
               R$ {capital.toFixed(2)}

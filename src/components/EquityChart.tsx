@@ -14,7 +14,7 @@ interface EquityChartProps {
 }
 
 const EquityChart: React.FC<EquityChartProps> = ({ data }) => {
-  // Transformar os dados para o formato compatível com Recharts
+  // Transform data to Recharts compatible format
   const formattedData = Array.from({ length: data[0]?.data.length || 0 }, (_, i) => {
     const dataPoint: any = { day: i + 1 };
     
@@ -27,11 +27,15 @@ const EquityChart: React.FC<EquityChartProps> = ({ data }) => {
     return dataPoint;
   });
 
+  // Create a diverse color palette for better visualization
   const colors = [
     '#3b82f6', '#ec4899', '#10b981', '#8b5cf6', '#f59e0b',
-    '#06b6d4', '#ef4444', '#84cc16', '#6366f1', '#d946ef'
+    '#06b6d4', '#ef4444', '#84cc16', '#6366f1', '#d946ef',
+    '#0ea5e9', '#f43f5e', '#22c55e', '#a855f7', '#eab308',
+    '#14b8a6', '#ef4444', '#84cc16', '#8b5cf6', '#f97316'
   ];
 
+  // Create a configuration for the chart (used by the ChartContainer)
   const config = data.reduce((acc, _, i) => {
     acc[`sim${i + 1}`] = { 
       label: `Simulação ${i + 1}`,

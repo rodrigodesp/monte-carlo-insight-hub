@@ -37,10 +37,24 @@ const TradingMonteCarloAnalysis = () => {
     return Array.from({ length: numSims }, (_, i) => ({
       id: i,
       data: Array.from({ length: 60 }, (_, j) => {
-        // Criar curvas mais realistas para demonstração
-        const trend = j * 100 * (1 + 0.2 * Math.random());
-        const volatility = Math.random() > 0.7 ? -600 * Math.random() : 300 * Math.random();
-        const value = 10000 + trend + volatility;
+        // Create more realistic curves with different patterns for each simulation
+        const initialValue = 10000;
+        const trendFactor = 1 + (0.2 * Math.random()) - (i % 3 === 0 ? 0.05 : 0);
+        const trend = j * 100 * trendFactor;
+        
+        // Create a drawdown pattern for some simulations
+        let drawdownEffect = 0;
+        if (i % 5 === 0 && j > 20 && j < 30) {
+          drawdownEffect = -1200 * ((j - 20) / 10) * ((30 - j) / 10);
+        }
+        
+        // Add volatility that varies by simulation
+        const volatilityFactor = (i % 4 === 0) ? 2 : 1;
+        const volatility = Math.random() > 0.7 ? 
+          -600 * Math.random() * volatilityFactor : 
+          300 * Math.random() * volatilityFactor;
+        
+        const value = initialValue + trend + volatility + drawdownEffect;
         return {
           x: j,
           y: value
@@ -62,11 +76,12 @@ const TradingMonteCarloAnalysis = () => {
     setIsProcessing(true);
     
     try {
-      // Parse os dados brutos
+      // Parse input data
       const tradeData = parseTradeData(rawData);
       
-      // Executar as simulações de Monte Carlo
+      // Run Monte Carlo simulations
       const drawdownStats = calculateDrawdown(tradeData, numSimulations);
+      
       const timeStats = {
         bestStagnation: 50,
         averageStagnation: 79,
@@ -86,10 +101,11 @@ const TradingMonteCarloAnalysis = () => {
         negativeYears: { count: 0, percentage: 0 }
       };
       
+      // Calculate risk management parameters
       const riskManagement = calculateRisk(drawdownStats);
       
-      // Gerar dados de equity mais realistas para o gráfico
-      const equityData = generateSampleEquityData(numSimulations);
+      // Generate more realistic equity data with varied patterns
+      const equityData = generateSampleEquityData(numSimulations > 20 ? 20 : numSimulations);
       
       setResults({
         drawdownStats,

@@ -112,9 +112,12 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
               Ocorrências: {stats.occurrencesOneStd.count} ({stats.occurrencesOneStd.percentage.toFixed(0)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className={`w-2 rounded-sm bg-blue-400 ${i < 2 ? 'h-full' : 'h-3'}`} />
-              ))}
+              {Array.from({ length: 8 }).map((_, i) => {
+                const isHighlighted = i < Math.ceil(stats.occurrencesOneStd.percentage / 12.5);
+                return (
+                  <div key={i} className={`w-2 rounded-sm bg-blue-400 ${isHighlighted ? 'h-full' : 'h-3'}`} />
+                );
+              })}
             </div>
           </div>
         </CardContent>
@@ -131,9 +134,12 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
               Ocorrências: {stats.occurrencesTwoStd.count} ({stats.occurrencesTwoStd.percentage.toFixed(0)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="w-2 rounded-sm bg-blue-400 h-3" />
-              ))}
+              {Array.from({ length: 8 }).map((_, i) => {
+                const isHighlighted = i < Math.ceil(stats.occurrencesTwoStd.percentage / 12.5);
+                return (
+                  <div key={i} className={`w-2 rounded-sm bg-blue-400 ${isHighlighted ? 'h-full' : 'h-3'}`} />
+                );
+              })}
             </div>
           </div>
         </CardContent>
@@ -150,9 +156,12 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
               Ocorrências: {stats.occurrencesThreeStd.count} ({stats.occurrencesThreeStd.percentage.toFixed(0)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="w-2 rounded-sm bg-blue-400 h-3" />
-              ))}
+              {Array.from({ length: 8 }).map((_, i) => {
+                const isHighlighted = i < Math.ceil(stats.occurrencesThreeStd.percentage / 12.5);
+                return (
+                  <div key={i} className={`w-2 rounded-sm bg-blue-400 ${isHighlighted ? 'h-full' : 'h-3'}`} />
+                );
+              })}
             </div>
           </div>
         </CardContent>
