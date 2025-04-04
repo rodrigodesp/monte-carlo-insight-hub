@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { parseTradeData } from '@/utils/tradeDataUtils';
-import { calculateDrawdown, calculateRisk } from '@/utils/monteCarloUtils';
+import { calculateDrawdown, calculateRisk, calculateStagnationPeriods } from '@/utils/monteCarloUtils';
 import DrawdownStats from '@/components/DrawdownStats';
 import TimeStats from '@/components/TimeStats';
 import MonthlyStats from '@/components/MonthlyStats';
@@ -31,6 +31,22 @@ const TradingMonteCarloAnalysis = () => {
     if (!isNaN(value) && value > 0) {
       setNumSimulations(value);
     }
+  };
+
+  const generateSampleEquityData = (numSims: number) => {
+    return Array.from({ length: numSims }, (_, i) => ({
+      id: i,
+      data: Array.from({ length: 60 }, (_, j) => {
+        // Criar curvas mais realistas para demonstração
+        const trend = j * 100 * (1 + 0.2 * Math.random());
+        const volatility = Math.random() > 0.7 ? -600 * Math.random() : 300 * Math.random();
+        const value = 10000 + trend + volatility;
+        return {
+          x: j,
+          y: value
+        };
+      })
+    }));
   };
 
   const runSimulation = () => {
@@ -72,14 +88,8 @@ const TradingMonteCarloAnalysis = () => {
       
       const riskManagement = calculateRisk(drawdownStats);
       
-      // Simular dados de equity para o gráfico
-      const equityData = Array.from({ length: 10 }, (_, i) => ({
-        id: i,
-        data: Array.from({ length: 60 }, (_, j) => ({
-          x: j,
-          y: 10000 + j * 100 * (1 + 0.5 * Math.random())
-        }))
-      }));
+      // Gerar dados de equity mais realistas para o gráfico
+      const equityData = generateSampleEquityData(numSimulations);
       
       setResults({
         drawdownStats,

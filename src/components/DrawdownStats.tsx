@@ -18,6 +18,12 @@ interface DrawdownStatsProps {
 }
 
 const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
+  // Format currency values
+  const formatCurrency = (value: number) => {
+    const absValue = Math.abs(value);
+    return `$ ${absValue.toFixed(2)}`;
+  };
+
   return (
     <>
       <Card>
@@ -32,7 +38,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
                   <div key={i} className={`h-${1 + i} w-1.5 rounded-sm bg-red-${300 + i*100}`} />
                 ))}
               </div>
-              <div className="text-3xl font-bold">$ {stats.maxDrawdown.toFixed(2)}</div>
+              <div className="text-3xl font-bold">{formatCurrency(stats.maxDrawdown)}</div>
               <div className="text-xs text-muted-foreground">Maior Drawdown</div>
             </div>
           </div>
@@ -51,7 +57,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
                   <div key={i} className={`h-2 w-1.5 rounded-sm bg-amber-${300 + i*100}`} />
                 ))}
               </div>
-              <div className="text-3xl font-bold">$ {stats.avgDrawdown.toFixed(2)}</div>
+              <div className="text-3xl font-bold">{formatCurrency(stats.avgDrawdown)}</div>
               <div className="text-xs text-muted-foreground">Drawdown Médio</div>
             </div>
           </div>
@@ -70,7 +76,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
                   <div key={i} className={`h-${5 - i} w-1.5 rounded-sm bg-blue-${300 + i*100}`} />
                 ))}
               </div>
-              <div className="text-3xl font-bold">$ {stats.minDrawdown.toFixed(2)}</div>
+              <div className="text-3xl font-bold">{formatCurrency(stats.minDrawdown)}</div>
               <div className="text-xs text-muted-foreground">Menor Drawdown</div>
             </div>
           </div>
@@ -89,7 +95,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
                   <div key={i} className={`h-${height} w-4 rounded-sm bg-green-${i % 2 ? 400 : 500}`} />
                 ))}
               </div>
-              <div className="text-3xl font-bold">$ {stats.stdDeviation.toFixed(2)}</div>
+              <div className="text-3xl font-bold">{formatCurrency(stats.stdDeviation)}</div>
             </div>
           </div>
         </CardContent>
@@ -101,9 +107,9 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-1 flex-1">
-            <div className="text-3xl font-bold">$ {stats.avgPlusOneStd.toFixed(2)}</div>
+            <div className="text-3xl font-bold">{formatCurrency(stats.avgPlusOneStd)}</div>
             <div className="text-xs text-muted-foreground">
-              Ocorrências: {stats.occurrencesOneStd.count} ({stats.occurrencesOneStd.percentage}%)
+              Ocorrências: {stats.occurrencesOneStd.count} ({stats.occurrencesOneStd.percentage.toFixed(0)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -120,9 +126,9 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-1 flex-1">
-            <div className="text-3xl font-bold">$ {stats.avgPlusTwoStd.toFixed(2)}</div>
+            <div className="text-3xl font-bold">{formatCurrency(stats.avgPlusTwoStd)}</div>
             <div className="text-xs text-muted-foreground">
-              Ocorrências: {stats.occurrencesTwoStd.count} ({stats.occurrencesTwoStd.percentage}%)
+              Ocorrências: {stats.occurrencesTwoStd.count} ({stats.occurrencesTwoStd.percentage.toFixed(0)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -139,9 +145,9 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-1 flex-1">
-            <div className="text-3xl font-bold">$ {stats.avgPlusThreeStd.toFixed(2)}</div>
+            <div className="text-3xl font-bold">{formatCurrency(stats.avgPlusThreeStd)}</div>
             <div className="text-xs text-muted-foreground">
-              Ocorrências: {stats.occurrencesThreeStd.count} ({stats.occurrencesThreeStd.percentage}%)
+              Ocorrências: {stats.occurrencesThreeStd.count} ({stats.occurrencesThreeStd.percentage.toFixed(0)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
               {Array.from({ length: 8 }).map((_, i) => (

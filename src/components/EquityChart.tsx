@@ -45,8 +45,11 @@ const EquityChart: React.FC<EquityChartProps> = ({ data }) => {
       <LineChart data={formattedData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="day" />
-        <YAxis />
-        <Tooltip />
+        <YAxis domain={['dataMin - 1000', 'dataMax + 1000']} />
+        <Tooltip 
+          formatter={(value: number) => [`R$ ${value.toFixed(2)}`, 'Valor']}
+          labelFormatter={(label) => `Dia ${label}`}
+        />
         {data.map((_, i) => (
           <Line 
             key={i}
@@ -55,6 +58,9 @@ const EquityChart: React.FC<EquityChartProps> = ({ data }) => {
             stroke={colors[i % colors.length]} 
             dot={false}
             strokeWidth={1.5}
+            isAnimationActive={true}
+            animationDuration={1000}
+            animationEasing="ease-in-out"
           />
         ))}
       </LineChart>

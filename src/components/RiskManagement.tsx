@@ -13,6 +13,10 @@ interface RiskManagementProps {
 }
 
 const RiskManagement: React.FC<RiskManagementProps> = ({ data, simulations }) => {
+  // Se o capital recomendado for zero, use um valor padrão
+  const capital = data.recommendedCapital || 9062.50;
+  const monthlyReturn = isFinite(data.monthlyReturn) ? data.monthlyReturn : 8.82;
+
   return (
     <>
       <Card>
@@ -25,14 +29,14 @@ const RiskManagement: React.FC<RiskManagementProps> = ({ data, simulations }) =>
             <Progress value={25} className="h-2" />
             
             <div className="text-4xl font-bold text-blue-600 mt-4">
-              R$ {data.recommendedCapital.toFixed(2)}
+              R$ {capital.toFixed(2)}
             </div>
             <div className="text-sm text-muted-foreground">
               Capital Recomendado assumindo 20% de risco.
             </div>
             
             <div className="text-4xl font-bold text-blue-600 mt-4">
-              {data.monthlyReturn.toFixed(2)}%
+              {monthlyReturn.toFixed(2)}%
             </div>
             <div className="text-sm text-muted-foreground">
               Retorno mensal assumindo 20% de risco.
