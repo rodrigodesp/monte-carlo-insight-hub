@@ -21,7 +21,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
   // Format currency values
   const formatCurrency = (value: number) => {
     const absValue = Math.abs(value);
-    return `$ ${absValue.toFixed(2)}`;
+    return `R$ ${absValue.toFixed(2)}`;
   };
 
   return (
@@ -109,7 +109,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
           <div className="space-y-1 flex-1">
             <div className="text-3xl font-bold">{formatCurrency(stats.avgPlusOneStd)}</div>
             <div className="text-xs text-muted-foreground">
-              Ocorrências: {stats.occurrencesOneStd.count} ({stats.occurrencesOneStd.percentage.toFixed(0)}%)
+              Ocorrências: {stats.occurrencesOneStd.count} ({Math.round(stats.occurrencesOneStd.percentage)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
               {Array.from({ length: 8 }).map((_, i) => {
@@ -131,7 +131,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
           <div className="space-y-1 flex-1">
             <div className="text-3xl font-bold">{formatCurrency(stats.avgPlusTwoStd)}</div>
             <div className="text-xs text-muted-foreground">
-              Ocorrências: {stats.occurrencesTwoStd.count} ({stats.occurrencesTwoStd.percentage.toFixed(0)}%)
+              Ocorrências: {stats.occurrencesTwoStd.count} ({Math.round(stats.occurrencesTwoStd.percentage)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
               {Array.from({ length: 8 }).map((_, i) => {
@@ -153,7 +153,7 @@ const DrawdownStats: React.FC<DrawdownStatsProps> = ({ stats }) => {
           <div className="space-y-1 flex-1">
             <div className="text-3xl font-bold">{formatCurrency(stats.avgPlusThreeStd)}</div>
             <div className="text-xs text-muted-foreground">
-              Ocorrências: {stats.occurrencesThreeStd.count} ({stats.occurrencesThreeStd.percentage.toFixed(0)}%)
+              Ocorrências: {stats.occurrencesThreeStd.count} ({Math.round(stats.occurrencesThreeStd.percentage)}%)
             </div>
             <div className="flex h-12 items-end space-x-1 pt-2">
               {Array.from({ length: 8 }).map((_, i) => {

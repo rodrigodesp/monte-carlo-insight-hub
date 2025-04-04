@@ -18,7 +18,7 @@ const RiskManagement: React.FC<RiskManagementProps> = ({ data, simulations }) =>
   const monthlyReturn = isFinite(data.monthlyReturn) && data.monthlyReturn > 0 ? data.monthlyReturn : 7.01;
   
   // Calculate risk representation (25% is low, 50% is medium, 75% is high)
-  const riskLevel = 25; // Default to low risk
+  const riskLevel = 25; // Default to low risk for now
 
   return (
     <>

@@ -46,10 +46,17 @@ const EquityChart: React.FC<EquityChartProps> = ({ data }) => {
 
   return (
     <ChartContainer config={config}>
-      <LineChart data={formattedData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+      <LineChart data={formattedData} margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="day" />
-        <YAxis domain={['dataMin - 1000', 'dataMax + 1000']} />
+        <XAxis 
+          dataKey="day" 
+          label={{ value: 'Dias', position: 'insideBottom', offset: -5 }}
+        />
+        <YAxis 
+          domain={['auto', 'auto']} 
+          label={{ value: 'Saldo (R$)', angle: -90, position: 'insideLeft' }}
+          tickFormatter={(value) => `R$${value.toLocaleString()}`}
+        />
         <Tooltip 
           formatter={(value: number) => [`R$ ${value.toFixed(2)}`, 'Valor']}
           labelFormatter={(label) => `Dia ${label}`}
